@@ -2,24 +2,80 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Corn Leaf Disease Detector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corn Leaf Scanner — Field Diagnostic Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🌽 Corn Leaf Disease Detector</h1>
-    <p>Upload a corn leaf image to detect disease</p>
 
-    <input type="file" id="imageInput" accept="image/*">
-    <img id="preview" style="display:none; max-width: 300px; margin-top: 15px;">
-    <button id="predictBtn">Predict</button>
+  <div class="wrap">
+    <header class="masthead">
+      <p class="eyebrow">Field diagnostic tool</p>
+      <h1>Corn Leaf Scanner</h1>
+      <p class="sub">Upload a leaf photo. The scanner checks it against four known conditions and shows you exactly what it saw.</p>
+    </header>
 
-    <div id="result" class="result" style="display:none;">
-      <h2 id="predictedClass"></h2>
-      <p id="confidence"></p>
-      <div id="probBars"></div>
-    </div>
+    <main class="grid">
+
+      <section class="panel scan-panel">
+        <p class="panel-label">01 — Sample</p>
+
+        <label for="imageInput" class="dropzone" id="dropzone">
+          <div class="dropzone-empty" id="dropzoneEmpty">
+            <span class="dz-icon">🌽</span>
+            <p class="dz-title">Drop a leaf image here</p>
+            <p class="dz-hint">or click to browse — JPG or PNG</p>
+          </div>
+          <div class="scan-stage" id="scanStage" style="display:none;">
+            <img id="preview" alt="Uploaded corn leaf">
+            <div class="scan-line" id="scanLine"></div>
+          </div>
+        </label>
+        <input type="file" id="imageInput" accept="image/*" hidden>
+
+        <button id="predictBtn" class="btn-primary" disabled>Scan leaf</button>
+      </section>
+
+      <section class="panel report-panel" id="reportPanel">
+        <p class="panel-label">02 — Field report</p>
+
+        <div class="report-empty" id="reportEmpty">
+          <p>Your scouting report will appear here once a leaf is scanned.</p>
+        </div>
+
+        <div class="report-body" id="reportBody" style="display:none;">
+
+          <div class="verdict">
+            <p class="verdict-label" id="verdictLabel">Diagnosis</p>
+            <h2 id="verdictClass">—</h2>
+            <p class="verdict-conf"><span id="verdictConf">—</span> confidence</p>
+          </div>
+
+          <div class="warning-banner" id="warningBanner" style="display:none;">
+            <span class="warn-mark">!</span>
+            <p>This case sits between two conditions. Treat the result as a starting point, not a final call — a closer look at the lesion pattern or a second photo may help.</p>
+          </div>
+
+          <div class="meters" id="meters"></div>
+
+          <div class="gradcam-block" id="gradcamBlock" style="display:none;">
+            <p class="panel-label" style="margin-top:1.5rem;">03 — Where it looked</p>
+            <img id="gradcamImg" alt="Model attention heatmap">
+            <p class="dz-hint">Warmer areas mark the regions that most influenced the diagnosis.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="foot">
+      <p>Trained on four corn leaf conditions — Blight, Common rust, Gray leaf spot, Healthy. Model: EfficientNetB0, fine-tuned. Test accuracy 94%.</p>
+    </footer>
   </div>
-  <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>
