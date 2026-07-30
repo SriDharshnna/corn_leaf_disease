@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Corn Leaf Disease Detector</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🌽 Corn Leaf Disease Detector</h1>
+    <p>Upload a corn leaf image to detect disease</p>
+
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="preview" style="display:none; max-width: 300px; margin-top: 15px;">
+    <button id="predictBtn">Predict</button>
+
+    <div id="result" class="result" style="display:none;">
+      <h2 id="predictedClass"></h2>
+      <p id="confidence"></p>
+      <div id="probBars"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
